@@ -3,6 +3,7 @@ require 'bouncie/client'
 require 'bouncie/entity'
 require 'bouncie/vehicle'
 require 'bouncie/trip'
+require 'bouncie/webhook'
 require 'bouncie/device_events/connect_event'
 require 'bouncie/device_events/disconnect_event'
 require 'bouncie/vehicle_health_events/battery_event'
@@ -14,5 +15,4 @@ require 'bouncie/vehicle_trip_events/trip_start_event'
 
 module Bouncie
   class Error < StandardError; end
-  # Your code goes here...
 end

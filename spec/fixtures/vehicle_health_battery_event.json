@@ -1,0 +1,9 @@
+{
+  "eventType": "battery",
+  "imei": "359486064322553",
+  "vin": "5J8YD4H37JL001743",
+  "battery": {
+    "timestamp": "2019-07-01T15:05:44.000Z",
+    "value": "critical"
+  }
+}

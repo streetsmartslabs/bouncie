@@ -1,0 +1,11 @@
+{
+  "eventType": "connect",
+  "imei": "359486064322553",
+  "vin": "3VWNJ81K86M678810",
+  "connect": {
+    "timestamp": "2019-07-01T15:04:57.000Z",
+    "timeZone": "-0500",
+    "latitude": 32.915987,
+    "longitude": -96.772574
+  }
+}

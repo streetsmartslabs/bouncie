@@ -1,0 +1,12 @@
+{
+  "eventType": "tripEnd",
+  "imei": "359486064322553",
+  "vin": "2D4FV48T15H516150",
+  "transactionId": "359486064495565-8084-1569514741000",
+  "end": {
+    "timestamp": "2019-06-25T15:05:29.000Z",
+    "timeZone": "-0500",
+    "odometer": 24852,
+    "fuelConsumed": 0.5
+  }
+}
