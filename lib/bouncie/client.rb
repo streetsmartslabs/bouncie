@@ -21,8 +21,8 @@ module Bouncie
     # @param imei [String] (Required) IMEI for the vehicle to retrieve trips for
     # @param transaction_id [String] Unique Trip Identifier
     # @param gps_format [String] (Required) One of: `polyline` or `geojson`
-    # @param starts_after: [ISODate] Will match trips with a starting time after this parameter. The window between starts-after and ends-before must be no longer than a week. If not provided, the last week will be used by default
-    # @param ends_before: [ISODate] Will match trips with an ending time before this parameter
+    # @param starts_after [ISODate] Will match trips with a starting time after this parameter. The window between starts-after and ends-before must be no longer than a week. If not provided, the last week will be used by default
+    # @param ends_before [ISODate] Will match trips with an ending time before this parameter
     # @return [Trip]
     def trips(imei:, transaction_id: nil, gps_format: 'polyline', starts_after: nil, ends_before: nil)
       request(
