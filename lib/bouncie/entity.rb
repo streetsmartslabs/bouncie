@@ -9,7 +9,7 @@ module Bouncie
           @data[key] = Bouncie::Entity.new(val)
         elsif val.is_a?(Array)
           @data[key] = val.map { |v| Bouncie::Entity.new(v) }
-        elsif val.is_a?(String) && ['_updated', '_time'].any? { |v| key.to_s.end_with?(v) }
+        elsif val.is_a?(String) && ['_updated', '_time', 'timestamp'].any? { |v| key.to_s.end_with?(v) }
           @data[key] = DateTime.parse(val)
         end
       end
