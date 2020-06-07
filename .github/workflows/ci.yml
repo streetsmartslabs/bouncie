@@ -27,12 +27,12 @@ jobs:
     - name: RSpec tests
       run: rspec spec
 
-    - name: Rubocop checks
-      uses: gimenete/rubocop-action@1.0
+    - name: Rubocop Linter Action
+      uses: andrewmcodes/rubocop-linter-action@v3.2.0
       env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Brakeman
       uses: devmasx/brakeman-linter-action@v1.0.0
       env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
