@@ -22,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Instantiate a client by passing an `options` hash with at least your app's `api_key` and your user account's `authorization_code'.
+
+API documentation is available at [docs.bouncie.dev](https://docs.bouncie.dev).
 
 ## Development
 
