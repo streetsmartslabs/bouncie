@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bouncie'
 
 module Bouncie
@@ -8,10 +10,10 @@ module Bouncie
     let(:conn) do
       Faraday.new do |builder|
         builder.adapter :test do |stub|
-          stub.get('/vehicles') do |env|
+          stub.get('/vehicles') do |_env|
             [
               200,
-              { 'Content-Type': 'application/json', },
+              { 'Content-Type': 'application/json' },
               '[
                 {
                   "model": {
@@ -42,10 +44,10 @@ module Bouncie
               ]'
             ]
           end
-          stub.get('/trips?imei=353762078072777') do |env|
+          stub.get('/trips?imei=353762078072777') do |_env|
             [
               200,
-              { 'Content-Type': 'application/json', },
+              { 'Content-Type': 'application/json' },
               '[
                 {
                   "transactionId": "353762078072777-123-1590670937000",
@@ -87,7 +89,7 @@ module Bouncie
     end
 
     describe '#trips' do
-      subject(:trips) { client.trips(imei: 353762078072777) }
+      subject(:trips) { client.trips(imei: 353_762_078_072_777) }
 
       it 'retrieves an array of trips' do
         expect(trips).to be_an_instance_of(Array)

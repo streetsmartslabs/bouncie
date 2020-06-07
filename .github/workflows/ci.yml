@@ -8,9 +8,7 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -20,18 +18,22 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
-
     - name: Install dependencies
       run: bundle install
-
     - name: RSpec tests
       run: rspec spec
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
     - name: Rubocop Linter Action
       uses: andrewmcodes/rubocop-linter-action@v3.2.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  security_checks:
+    runs-on: ubuntu-latest
+    steps:
     - name: Brakeman
       uses: devmasx/brakeman-linter-action@v1.0.0
       env:
