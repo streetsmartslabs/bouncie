@@ -9,6 +9,8 @@ module Bouncie
           @data[key] = Bouncie::Entity.new(val)
         elsif val.is_a?(Array)
           @data[key] = val.map { |v| Bouncie::Entity.new(v) }
+        elsif val.is_a?(String) && val.to_s.ends_with?('_at') || val.to_s.ends_with?('_time')
+          @data[key] = DateTime.parse(val)
         end
       end
     end
