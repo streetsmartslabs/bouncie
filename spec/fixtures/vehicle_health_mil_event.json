@@ -1,0 +1,10 @@
+{
+  "eventType": "mil",
+  "imei": "359486064322553",
+  "vin": "5J8YD4H37JL001743",
+  "mil": {
+    "timestamp": "2019-07-01T15:22:56.000Z",
+    "value": "ON",
+    "codes": "U1126, P0303"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "eventType": "tripMetrics",
+  "imei": "359486064322553",
+  "vin": "2D4FV48T15H516150",
+  "transactionId": "359486064495565-8084-1569514741000",
+  "metrics": {
+    "timestamp": "2019-06-25T15:11:20.208Z",
+    "tripTime": 325,
+    "tripDistance": 0.9,
+    "totalIdlingTime": 118,
+    "maxSpeed": 41,
+    "averageDriveSpeed": 17.3,
+    "hardBrakingCounts": 0,
+    "hardAccelerationCounts": 0
+  }
+}
