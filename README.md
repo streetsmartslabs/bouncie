@@ -1,9 +1,5 @@
 # Bouncie
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bouncie`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -23,6 +19,13 @@ Or install it yourself as:
 ## Usage
 
 Instantiate a client by passing an `options` hash with at least your app's `api_key` and your user account's `authorization_code'.
+```ruby
+client = Bouncie::Client.new(api_key: [MY_KEY], authorization_code: [MY_CODE])
+
+vehicles = client.vehicles
+
+trips = client.trips(imei: [MY_VEHICLE_IMEI])
+```
 
 API documentation is available at [docs.bouncie.dev](https://docs.bouncie.dev).
 
@@ -34,4 +37,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bouncie.
+Bug reports and pull requests are welcome on GitHub at https://github.com/streetsmartslabs/bouncie.
