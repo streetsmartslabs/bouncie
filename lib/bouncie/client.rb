@@ -30,10 +30,10 @@ module Bouncie
         endpoint: 'trips',
         params: {
           imei: imei,
-          transaction_id: transaction_id,
-          gps_format: gps_format,
-          starts_after: starts_after,
-          ends_before: ends_before
+          transactionId: transaction_id,
+          gpsFormat: gps_format,
+          startsAfter: starts_after,
+          endsBefore: ends_before
         }.compact
       ).map { |data| Bouncie::Trip.new(data) }
     end
@@ -56,8 +56,7 @@ module Bouncie
 
     def headers
       @headers ||= {
-        'AuthorizationCode' => options[:authorization_code],
-        'ApiKey' => options[:api_key]
+        Authorization: options[:authorization_code]
       }.merge(options[:headers] || {})
     end
 
