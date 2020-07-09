@@ -11,8 +11,11 @@ module Bouncie
     attr_reader :options
 
     # @param [Hash] options the options to create a `Bouncie::Client` with.
-    # @option opts [String] :api_key your Bouncie app's API key. Retrieve this from https://www.bouncie.dev/apps. Required.
+    # @option opts [String] :client_id your Bouncie app's client_id. Retrieve this from https://www.bouncie.dev/apps. Required.
+    # @option opts [String] :client_id your Bouncie app's client_secret. Retrieve this from https://www.bouncie.dev/apps. Required.
+    # @option opts [String] :redirect_uri the same redirect uri used to retrieve the token initially. Used for verification only. Required.
     # @option opts [String] :authorization_code code from a user who grants access to their information via OAuth. Required.
+    # @option opts [String] :access_token token from a user who grants access to their information via OAuth. Required.
     # @option opts [Hash] :headers hash of any additional headers to add to HTTP requests
     def initialize(options)
       @options = options
@@ -44,24 +47,51 @@ module Bouncie
     def vehicles(imei: nil, vin: nil)
       request(
         http_method: :get,
-        endpoint: 'vehicles',
-        params: {
+        endpoint:    'vehicles',
+        params:      {
           imei: imei,
-          vin: vin
+          vin:  vin
         }.compact
       ).map { |data| Bouncie::Vehicle.new(data) }
+    end
+
+    # @return [User]
+    def user
+      data = request(
+        http_method: :get,
+        endpoint: 'user'
+      )
+      Bouncie::User.new(data)
+    end
+
+    def refresh!
+      resp = Faraday.post('https://auth.bouncie.com/oauth/token', {
+                     client_id:     options[:client_id],
+                     client_secret: options[:client_secret],
+                     grant_type:    'authorization_code',
+                     code:          options[:authorization_code],
+                     redirect_uri:  options[:redirect_uri]
+                   })
+      if resp.success?
+        parsed_resp = Oj.load(resp.body)
+        @headers = headers.merge(Authorization: parsed_resp['access_token'])
+        @client = build_client
+      end
+      resp
     end
 
     private
 
     def headers
-      @headers ||= {
-        Authorization: options[:authorization_code]
-      }.merge(options[:headers] || {})
+      @headers = { Authorization: options[:access_token] }.merge(options[:headers] || {})
     end
 
     def client
-      @client ||= Faraday.new(API_ENDPOINT, headers: headers) do |client|
+      @client ||= build_client
+    end
+
+    def build_client
+      Faraday.new(API_ENDPOINT, headers: headers) do |client|
         client.request :url_encoded
         client.adapter Faraday.default_adapter
       end
