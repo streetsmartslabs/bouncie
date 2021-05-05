@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'faraday'
-require 'oj'
+require 'json'
 
 module Bouncie
   # Class that wraps a Faraday connection in order to interact with the Bouncie API
@@ -47,10 +47,10 @@ module Bouncie
     def vehicles(imei: nil, vin: nil)
       request(
         http_method: :get,
-        endpoint:    'vehicles',
-        params:      {
+        endpoint: 'vehicles',
+        params: {
           imei: imei,
-          vin:  vin
+          vin: vin
         }.compact
       ).map { |data| Bouncie::Vehicle.new(data) }
     end
@@ -64,21 +64,23 @@ module Bouncie
       Bouncie::User.new(data)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def refresh!
       resp = Faraday.post('https://auth.bouncie.com/oauth/token', {
-                     client_id:     options[:client_id],
-                     client_secret: options[:client_secret],
-                     grant_type:    'authorization_code',
-                     code:          options[:authorization_code],
-                     redirect_uri:  options[:redirect_uri]
-                   })
+                            client_id: options[:client_id],
+                            client_secret: options[:client_secret],
+                            grant_type: 'authorization_code',
+                            code: options[:authorization_code],
+                            redirect_uri: options[:redirect_uri]
+                          })
       if resp.success?
-        parsed_resp = Oj.load(resp.body)
+        parsed_resp = JSON.parse(resp.body)
         @headers = headers.merge(Authorization: parsed_resp['access_token'])
         @client = build_client
       end
       resp
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -100,7 +102,7 @@ module Bouncie
     def request(http_method:, endpoint:, params: {})
       params.transform_keys! { |k| k.to_s.dasherize }
       resp = client.public_send(http_method, endpoint, params)
-      Oj.load(resp.body)
+      JSON.parse(resp.body)
     end
   end
 end
