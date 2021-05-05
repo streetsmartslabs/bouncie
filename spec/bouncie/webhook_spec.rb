@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'bouncie'
-require 'oj'
+require 'json'
 
 module Bouncie
   describe Webhook do
@@ -9,7 +9,7 @@ module Bouncie
       shared_examples_for 'a parsable webhook event' do |event_klass, event_type|
         subject(:parsed_event) { Bouncie::Webhook.parse(event_data) }
 
-        let(:event_data) { Oj.load(File.read("spec/fixtures/#{event_type}.json")) }
+        let(:event_data) { JSON.load(File.read("spec/fixtures/#{event_type}.json")) }
 
         it "parses data into a #{event_klass}" do
           expect(parsed_event).to be_an_instance_of(event_klass)

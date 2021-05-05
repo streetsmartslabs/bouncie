@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'faraday'
-require 'oj'
+require 'json'
 
 module Bouncie
   # Class that wraps a Faraday connection in order to interact with the Bouncie API
@@ -73,7 +73,7 @@ module Bouncie
                      redirect_uri:  options[:redirect_uri]
                    })
       if resp.success?
-        parsed_resp = Oj.load(resp.body)
+        parsed_resp = JSON.load(resp.body)
         @headers = headers.merge(Authorization: parsed_resp['access_token'])
         @client = build_client
       end
@@ -100,7 +100,7 @@ module Bouncie
     def request(http_method:, endpoint:, params: {})
       params.transform_keys! { |k| k.to_s.dasherize }
       resp = client.public_send(http_method, endpoint, params)
-      Oj.load(resp.body)
+      JSON.load(resp.body)
     end
   end
 end
