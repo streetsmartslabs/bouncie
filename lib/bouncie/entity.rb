@@ -35,7 +35,7 @@ module Bouncie
         Bouncie::Entity.new(value)
       elsif value.is_a?(Array)
         value.map { |v| massage_value(v) }
-      elsif value.is_a?(String) && value.match?(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)$/)
+      elsif value.is_a?(String) && value.match?(/^(\d{4})-(\d{2})-(\d{2})(T|\s)(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)$/)
         DateTime.parse(value)
       else
         value
