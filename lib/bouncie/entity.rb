@@ -6,8 +6,8 @@ module Bouncie
   # Abstract base class for objects returned from API requests. Parses dates, converts keys to underscore.
   class Entity
     def initialize(data)
-      @data = data.transform_keys { |k| k.to_s.underscore.to_sym }
-      massage_data
+      transformed = data.transform_keys { |k| k.to_s.underscore.to_sym }
+      @data = massage_data(transformed)
     end
 
     def method_missing(method_name, *args, &block)
@@ -24,15 +24,21 @@ module Bouncie
 
     private
 
-    def massage_data
-      @data.each do |key, val|
-        if val.is_a?(Hash)
-          @data[key] = Bouncie::Entity.new(val)
-        elsif val.is_a?(Array)
-          @data[key] = val.map { |v| Bouncie::Entity.new(v) }
-        elsif val.is_a?(String) && %w[_updated _time timestamp].any? { |v| key.to_s.end_with?(v) }
-          @data[key] = DateTime.parse(val)
-        end
+    def massage_data(input)
+      input.each_with_object({}) do |(key, val), memo|
+        memo[key] = massage_value(val)
+      end
+    end
+
+    def massage_value(value)
+      if value.is_a?(Hash)
+        Bouncie::Entity.new(value)
+      elsif value.is_a?(Array)
+        value.map { |v| massage_value(v) }
+      elsif value.is_a?(String) && value.match?(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)$/)
+        DateTime.parse(value)
+      else
+        value
       end
     end
   end
