@@ -64,6 +64,7 @@ module Bouncie
       Bouncie::User.new(data)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def refresh!
       resp = Faraday.post('https://auth.bouncie.com/oauth/token', {
                             client_id: options[:client_id],
@@ -79,6 +80,7 @@ module Bouncie
       end
       resp
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
