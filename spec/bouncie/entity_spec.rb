@@ -70,7 +70,7 @@ module Bouncie
       end
 
       context 'when mil is on' do
-        let(:raw_vehicle) { Oj.load(File.read('spec/fixtures/vehicle_with_mil_event.json')) }
+        let(:raw_vehicle) { JSON.load(File.read('spec/fixtures/vehicle_with_mil_event.json')) }
 
         it 'correctly parses nested array objects' do
           expect(entity.stats.mil.qualified_dtc_list.first.name).to eq(['Catalyst System Efficiency Below Threshold Bank 1'])
