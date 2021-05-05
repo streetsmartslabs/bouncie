@@ -68,6 +68,14 @@ module Bouncie
       it 'parses nested dates' do
         expect(entity.stats.last_updated).to be_an_instance_of(DateTime)
       end
+
+      context 'when mil is on' do
+        let(:raw_vehicle) { JSON.parse(File.read('spec/fixtures/vehicle_with_mil_event.json')) }
+
+        it 'correctly parses nested array objects' do
+          expect(entity.stats.mil.qualified_dtc_list.first.name).to eq(['Catalyst System Efficiency Below Threshold Bank 1'])
+        end
+      end
     end
   end
 end
