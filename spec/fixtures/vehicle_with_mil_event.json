@@ -1,0 +1,40 @@
+{
+  "model": {
+    "make": "DODGE",
+    "name": "Grand Caravan",
+    "year": 2014
+  },
+  "nickName": "14 Grey Caravan",
+  "standardEngine": "3.6L",
+  "vin": "5J8YD4H37JL001743",
+  "imei": "353380101459252",
+  "stats": {
+    "localTimeZone": "-0500",
+    "lastUpdated": "2021-05-05T00:42:28.000Z",
+    "location": {
+      "lat": 39.309588,
+      "lon": -94.7144994,
+      "heading": 315,
+      "address": null
+    },
+    "fuelLevel": 94.90196078431373,
+    "isRunning": false,
+    "speed": 0,
+    "mil": {
+      "milOn": false,
+      "lastUpdated": "2021-05-02T23:04:37.000Z",
+      "qualifiedDtcList": [
+        {
+          "code": "P0420",
+          "name": [
+            "Catalyst System Efficiency Below Threshold Bank 1"
+          ]
+        }
+      ]
+    },
+    "battery": {
+      "status": "normal",
+      "lastUpdated": "2021-02-16T02:46:55.000Z"
+    }
+  }
+}
